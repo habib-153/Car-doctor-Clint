@@ -1,15 +1,19 @@
 const express = require('express');
+const app = express();
 const cors = require('cors');
+require('dotenv').config()
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-require('dotenv').config()
-const app = express();
 const port = process.env.PORT || 5000
 
 // middleware
 app.use(cors({
-  origin:['http://localhost:5173'],
+  origin:[
+    'http://localhost:5173',
+    'https://car-doctor-e7450.web.app/',
+    'https://car-doctor-e7450.firebaseapp.com/'
+],
   credentials: true
 }));
 app.use(express.json());
@@ -139,7 +143,7 @@ async function run() {
     })
 
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    //await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error

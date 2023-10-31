@@ -25,7 +25,12 @@
  * 
  */
 
-
+/**
+ * 1. for secure api calls
+ * 2. Server Side: install cookie parser and use it as a middleware
+ * 3. req.cookies
+ * 4. on the client side: make api call using axios withCredentials:true
+ */
 /**
  * how to store token in client side
  * 1. memory --> ok type
