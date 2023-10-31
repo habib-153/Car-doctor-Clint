@@ -1,18 +1,18 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-require('dotenv').config()
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
+require('dotenv').config()
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000
 
 // middleware
 app.use(cors({
   origin:[
+    //'https://car-doctor-e7450.web.app',
     'http://localhost:5173',
-    'https://car-doctor-e7450.web.app/',
-    'https://car-doctor-e7450.firebaseapp.com/'
+    //'https://car-doctor-e7450.firebaseapp.com'
 ],
   credentials: true
 }));
@@ -64,12 +64,12 @@ async function run() {
     app.post('/jwt', logger, async(req, res)=>{
       const user = req.body;
       console.log(user)
-      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '3h'})
       res
       .cookie('token', token,{
         httpOnly: true,
-        secure: false,
-       
+        secure: true,
+        sameSite: 'none'
       })
       .send({success: true})
     })
